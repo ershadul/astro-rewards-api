@@ -1,21 +1,20 @@
-const _ = require('lodash');
 const Subscriber = require('./subscriber');
 
 function list(req, res) {
-  let queryObject = req.query || {};
-  queryObject.tenant = req.tenant._id;
+  const queryObject = req.query || {};
+  queryObject.tenant = req.tenant.id;
   Subscriber.find(queryObject, (err, subscribers) => {
     if (err) { return res.status(400).json(err); }
-    res.status(200).send(subscribers);
+    return res.status(200).send(subscribers);
   });
 }
 
 function create(req, res) {
-  let data = req.body || {};
-  data.tenant = req.tenant._id;
+  const data = req.body || {};
+  data.tenant = req.tenant.id;
   Subscriber.create(data, (err, newSubscriber) => {
     if (err) { return res.status(400).json(err); }
-    res.status(201).send(newSubscriber);
+    return res.status(201).send(newSubscriber);
   });
 }
 

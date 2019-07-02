@@ -1,10 +1,11 @@
 const bodyParser = require('body-parser');
 const express = require('express');
-const fs = require('fs');
+// const fs = require('fs');
 const http = require('http');
 const mongoose = require('mongoose');
-const path = require('path');
+// const path = require('path');
 const config = require('./config');
+const routes = require('./routes');
 
 const app = express();
 const server = http.createServer(app);
@@ -37,9 +38,10 @@ server.listen(config.PORT, (err) => {
     if (dbError) { process.exit(1); }
   });
 
-  fs.readdirSync(path.join(__dirname, '/routes')).map((file) => {
-    require(`./routes/${file}`)(app);
-  });
+  // fs.readdirSync(path.join(__dirname, '/routes')).map((file) => {
+  //   require(`./routes/${file}`)(app);
+  // });
+  routes(app);
 });
 
 router.get('/_status', (req, res) => {

@@ -5,11 +5,11 @@ const singleUpload = upload.single('logo');
 
 function list(req, res) {
   const queryObject = req.query || {};
-  queryObject.tenant = req.tenant._id;
+  queryObject.tenant = req.tenant.id;
 
   Company.find(queryObject, (err, companies) => {
     if (err) { return res.status(400).json(err); }
-    res.status(200).send(companies);
+    return res.status(200).send(companies);
   });
 }
 
@@ -20,12 +20,12 @@ function create(req, res) {
     }
 
     const data = req.body || {};
-    data.tenant = req.tenant._id;
+    data.tenant = req.tenant.id;
     data.logo = req.file.location;
 
     Company.create(data, (err2, newCompany) => {
       if (err2) { return res.status(400).json(err2); }
-      res.status(201).send(newCompany);
+      return res.status(201).send(newCompany);
     });
   });
 }
@@ -35,7 +35,7 @@ function get(req, res) {
   Company.findById(companyId, (err, _company) => {
     if (err) { return res.status(400).json(err); }
     if (!_company) { return res.status(404).json({ message: 'Company with id not found.' }); }
-    res.status(200).send(_company);
+    return res.status(200).send(_company);
   });
 }
 
@@ -44,7 +44,7 @@ function update(req, res) {
   Company.findByIdAndUpdate(companyId, req.body, { new: true }, (err, _company) => {
     if (err) { return res.status(400).json(err); }
     if (!_company) { return res.status(404).json({ message: 'Company with id not found.' }); }
-    res.status(200).send(_company);
+    return res.status(200).send(_company);
   });
 }
 
@@ -53,7 +53,7 @@ function remove(req, res) {
   Company.findByIdAndRemove(companyId, (err, _company) => {
     if (err) { return res.status(400).json(err); }
     if (!_company) { return res.status(404).json({ message: 'Company with id not found.' }); }
-    res.status(200).json({ message: 'Company was deleted successfully' });
+    return res.status(200).json({ message: 'Company was deleted successfully' });
   });
 }
 

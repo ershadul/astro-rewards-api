@@ -5,6 +5,6 @@ module.exports = (req, res, next) => {
   Tenant.findById(req.headers.tenant, (err, tenant) => {
     if (err || !tenant) { return res.status(400).send('Invalid tenant Id provided'); }
     req.tenant = tenant;
-    next();
+    return next();
   });
 };
