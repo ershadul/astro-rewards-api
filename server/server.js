@@ -3,6 +3,7 @@ const express = require('express');
 // const fs = require('fs');
 const http = require('http');
 const mongoose = require('mongoose');
+const cors = require('cors');
 // const path = require('path');
 const config = require('./config');
 const routes = require('./routes');
@@ -15,6 +16,7 @@ app.use(router);
 
 const dbUrl = config.DB_URL;
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
