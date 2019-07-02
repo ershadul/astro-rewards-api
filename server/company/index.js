@@ -6,8 +6,6 @@ const upload = require('../services/image-uploader');
 const singleUpload = upload.single('logo');
 
 function list(req, res) {
-  if (!req.tenant) { return res.status(400).send('tenant header is required.'); }
-
   const queryObject = req.query || {};
   queryObject.tenant = req.tenant._id;
 
@@ -18,8 +16,6 @@ function list(req, res) {
 }
 
 function create(req, res) {
-  if (!req.tenant) { return res.status(400).send('tenant Id in header is required.'); }
-
   singleUpload(req, res, (err) => {
     if (err) {
       return res.status(400).send({ errors: [{ title: 'Image Upload Error', detail: err.message }] });
@@ -29,8 +25,8 @@ function create(req, res) {
     data.tenant = req.tenant._id;
     data.logo = req.file.location;
 
-    Company.create(data, (err, newCompany) => {
-      if (err) { return res.status(400).send('Failed to create a company.'); }
+    Company.create(data, (err2, newCompany) => {
+      if (err2) { return res.status(400).send('Failed to create a company.'); }
       res.status(201).send(newCompany);
     });
   });

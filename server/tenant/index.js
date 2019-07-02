@@ -1,4 +1,3 @@
-const _ = require('lodash');
 const Tenant = require('./tenant');
 
 function list(req, res) {
