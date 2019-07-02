@@ -5,6 +5,7 @@ const http = require('http');
 const mongoose = require('mongoose');
 const path = require('path');
 const config = require('./config');
+const tenantMiddleware = require('./middlewares/tenant');
 
 const app = express();
 const server = http.createServer(app);
@@ -16,6 +17,7 @@ const dbUrl = config.DB_URL;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(tenantMiddleware);
 
 app.use((err, req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');

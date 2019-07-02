@@ -6,11 +6,10 @@ const upload = require('../services/image-uploader');
 const singleUpload = upload.single('logo');
 
 function list(req, res) {
-  const { tenant } = req.headers;
-  if (!tenant) { return res.status(400).send('tenant header is required.'); }
+  if (!req.tenant) { return res.status(400).send('tenant header is required.'); }
 
   const queryObject = req.query || {};
-  queryObject.tenant = new mongoose.Types.ObjectId(tenant);
+  queryObject.tenant = req.tenant._id;
 
   Company.find(queryObject, (err, companies) => {
     if (err) { return res.status(400).send('Error fetching companies.'); }
@@ -19,8 +18,7 @@ function list(req, res) {
 }
 
 function create(req, res) {
-  const { tenant } = req.headers;
-  if (!tenant) { return res.status(400).send('tenant header is required.'); }
+  if (!req.tenant) { return res.status(400).send('tenant Id in header is required.'); }
 
   singleUpload(req, res, (err) => {
     if (err) {
@@ -28,7 +26,7 @@ function create(req, res) {
     }
 
     const data = req.body || {};
-    data.tenant = new mongoose.Types.ObjectId(tenant);
+    data.tenant = req.tenant._id;
     data.logo = req.file.location;
 
     Company.create(data, (err, newCompany) => {
