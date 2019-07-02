@@ -1,0 +1,10 @@
+node_modules/
+yarn.lock
+.idea/
+server/static
+dump.rdb
+*.DS_Store
+.nvmrc
+.idea
+package-lock.json
+yarn-error.log
