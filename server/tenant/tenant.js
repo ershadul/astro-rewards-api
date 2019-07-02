@@ -1,9 +1,12 @@
-const mongoose = require('mongoose'),
-  timestamp = require('mongoose-timestamp'),
-  Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const timestamp = require('mongoose-timestamp');
 
-let TenantSchema = new Schema({
-  name: {type: String, required: true, unique: true, trim: true},
+const { Schema } = mongoose;
+
+const TenantSchema = new Schema({
+  name: {
+    type: String, required: true, unique: true, trim: true,
+  },
 });
 
 TenantSchema.plugin(timestamp);

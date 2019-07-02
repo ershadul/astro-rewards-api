@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "test",
-    "server": "nodemon server/server.js"
+    "server": "nodemon server/server.js",
+    "lint": "./node_modules/.bin/eslint server"
   },
   "author": "ershadul",
   "license": "ISC",
@@ -23,5 +24,10 @@
     "nodemon": "^1.19.1",
     "path": "^0.12.7",
     "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.0"
   }
 }

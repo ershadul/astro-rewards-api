@@ -1,8 +1,8 @@
-const _ = require('lodash'),
-  Subscriber = require('./subscriber');
+const _ = require('lodash');
+const Subscriber = require('./subscriber');
 
 function list(req, res) {
-  let queryObject = req.query || {};
+  const queryObject = req.query || {};
   Subscriber.find(queryObject, (err, subscribers) => {
     if (err) { return res.status(400).send('Error fetching subscribers.'); }
     res.status(200).send(subscribers);
@@ -18,5 +18,5 @@ function create(req, res) {
 
 module.exports = {
   list,
-  create
+  create,
 };

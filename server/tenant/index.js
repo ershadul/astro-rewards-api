@@ -1,8 +1,8 @@
-const _ = require('lodash'),
-  Tenant = require('./tenant');
+const _ = require('lodash');
+const Tenant = require('./tenant');
 
 function list(req, res) {
-  let queryObject = req.query || {};
+  const queryObject = req.query || {};
 
   Tenant.find(queryObject, (err, tenants) => {
     if (err) { return res.status(400).send('Error fetching tenants.'); }
@@ -28,7 +28,7 @@ function get(req, res) {
 
 function update(req, res) {
   const tenantId = req.params.id;
-  Tenant.findByIdAndUpdate(tenantId, req.body, {new: true}, (err, _tenant) => {
+  Tenant.findByIdAndUpdate(tenantId, req.body, { new: true }, (err, _tenant) => {
     if (err) { return res.status(400).send('Failed to update tenant.'); }
     if (!_tenant) { return res.status(404).send('Tenant with id not found.'); }
     res.status(200).send(_tenant);
@@ -40,7 +40,7 @@ function remove(req, res) {
   Tenant.findByIdAndRemove(tenantId, (err, _tenant) => {
     if (err) { return res.status(400).send('Failed to remove tenant.'); }
     if (!_tenant) { return res.status(404).send('Tenant with id not found.'); }
-    res.status(200).send("Tenant was deleted successfully");
+    res.status(200).send('Tenant was deleted successfully');
   });
 }
 
@@ -49,5 +49,5 @@ module.exports = {
   create,
   get,
   update,
-  remove
+  remove,
 };

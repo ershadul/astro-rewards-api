@@ -1,6 +1,6 @@
 const Reward = require('../reward');
 
-module.exports = app => {
+module.exports = (app) => {
   app.get('/v1/rewards', Reward.list);
   app.post('/v1/rewards', Reward.create);
   app.get('/v1/rewards/:id', Reward.get);
