@@ -1,5 +1,3 @@
-const _ = require('lodash');
-const mongoose = require('mongoose');
 const Company = require('./company');
 const upload = require('../services/image-uploader');
 
@@ -10,7 +8,7 @@ function list(req, res) {
   queryObject.tenant = req.tenant._id;
 
   Company.find(queryObject, (err, companies) => {
-    if (err) { return res.status(400).send('Error fetching companies.'); }
+    if (err) { return res.status(400).json(err); }
     res.status(200).send(companies);
   });
 }
@@ -26,7 +24,7 @@ function create(req, res) {
     data.logo = req.file.location;
 
     Company.create(data, (err2, newCompany) => {
-      if (err2) { return res.status(400).send('Failed to create a company.'); }
+      if (err2) { return res.status(400).json(err2); }
       res.status(201).send(newCompany);
     });
   });
@@ -35,8 +33,8 @@ function create(req, res) {
 function get(req, res) {
   const companyId = req.params.id;
   Company.findById(companyId, (err, _company) => {
-    if (err) { return res.status(400).send('Failed to fetch company.'); }
-    if (!_company) { return res.status(404).send('Company with id not found.'); }
+    if (err) { return res.status(400).json(err); }
+    if (!_company) { return res.status(404).json({ message: 'Company with id not found.' }); }
     res.status(200).send(_company);
   });
 }
@@ -44,8 +42,8 @@ function get(req, res) {
 function update(req, res) {
   const companyId = req.params.id;
   Company.findByIdAndUpdate(companyId, req.body, { new: true }, (err, _company) => {
-    if (err) { return res.status(400).send('Failed to update company.'); }
-    if (!_company) { return res.status(404).send('Company with id not found.'); }
+    if (err) { return res.status(400).json(err); }
+    if (!_company) { return res.status(404).json({ message: 'Company with id not found.' }); }
     res.status(200).send(_company);
   });
 }
@@ -53,9 +51,9 @@ function update(req, res) {
 function remove(req, res) {
   const companyId = req.params.id;
   Company.findByIdAndRemove(companyId, (err, _company) => {
-    if (err) { return res.status(400).send('Failed to remove company.'); }
-    if (!_company) { return res.status(404).send('Company with id not found.'); }
-    res.status(200).send('Company was deleted successfully');
+    if (err) { return res.status(400).json(err); }
+    if (!_company) { return res.status(404).json({ message: 'Company with id not found.' }); }
+    res.status(200).json({ message: 'Company was deleted successfully' });
   });
 }
 
