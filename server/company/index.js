@@ -1,0 +1,74 @@
+const _ = require('lodash'),
+  Company = require('./company'),
+  mongoose = require('mongoose'),
+  upload = require('../services/image-uploader');
+
+const singleUpload = upload.single('logo');
+
+function list(req, res) {
+  const tenant = req.headers.tenant;
+  if (!tenant) { return res.status(400).send('tenant header is required.'); }
+
+  let queryObject = req.query || {};
+  queryObject.tenant = new mongoose.Types.ObjectId(tenant);
+
+  Company.find(queryObject, (err, companies) => {
+    if (err) { return res.status(400).send('Error fetching companies.'); }
+    res.status(200).send(companies);
+  });
+}
+
+function create(req, res) {
+  const tenant = req.headers.tenant;
+  if (!tenant) { return res.status(400).send('tenant header is required.'); }
+
+  singleUpload(req, res, function(err) {
+    if (err) {
+      return res.status(400).send({errors: [{title: 'Image Upload Error', detail: err.message}]});
+    }
+
+    let data = req.body || {};
+    data.tenant = new mongoose.Types.ObjectId(tenant);
+    data.logo = req.file.location;
+
+    Company.create(data, (err, newCompany) => {
+      if (err) { return res.status(400).send('Failed to create a company.'); }
+      res.status(201).send(newCompany);
+    });
+  });
+}
+
+function get(req, res) {
+  const companyId = req.params.id;
+  Company.findById(companyId, (err, _company) => {
+    if (err) { return res.status(400).send('Failed to fetch company.'); }
+    if (!_company) { return res.status(404).send('Company with id not found.'); }
+    res.status(200).send(_company);
+  });
+}
+
+function update(req, res) {
+  const companyId = req.params.id;
+  Company.findByIdAndUpdate(companyId, req.body, {new: true}, (err, _company) => {
+    if (err) { return res.status(400).send('Failed to update company.'); }
+    if (!_company) { return res.status(404).send('Company with id not found.'); }
+    res.status(200).send(_company);
+  });
+}
+
+function remove(req, res) {
+  const companyId = req.params.id;
+  Company.findByIdAndRemove(companyId, (err, _company) => {
+    if (err) { return res.status(400).send('Failed to remove company.'); }
+    if (!_company) { return res.status(404).send('Company with id not found.'); }
+    res.status(200).send("Company was deleted successfully");
+  });
+}
+
+module.exports = {
+  list,
+  create,
+  get,
+  update,
+  remove
+};
