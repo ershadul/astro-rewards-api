@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "test",
-    "server": "nodemon server/server.js",
+    "start": "nodemon server/server.js",
     "lint": "./node_modules/.bin/eslint server"
   },
   "author": "ershadul",
