@@ -1,10 +1,10 @@
+require('dotenv').config();
 const bodyParser = require('body-parser');
 const express = require('express');
 // const fs = require('fs');
 const http = require('http');
 const mongoose = require('mongoose');
 const cors = require('cors');
-// const path = require('path');
 const config = require('./config');
 const routes = require('./routes');
 

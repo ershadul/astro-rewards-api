@@ -25,7 +25,7 @@ const upload = multer({
   storage: multerS3({
     acl: 'public-read',
     s3,
-    bucket: 'astro-ershadul',
+    bucket: config.S3_BUCKET_NAME,
     key(req, file, cb) {
       const filename = `${uuidv4()}.${file.mimetype.split('/').pop()}`;
       cb(null, filename);
