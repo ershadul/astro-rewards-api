@@ -100,6 +100,14 @@ The purpose was to develop a reward system just like https://rewards.astro.com.m
 
 [ *The following end points are a tenant specific, therefore a tenant header is required for all following end points. For example: { headers: { tenant: 'xxxxx' } where 'xxxxx' is the tenant id. In real world, this is be replaced by an Auth system*]
 
+### Obtain a Tenant Id
+    - > mongo
+    - > use astro
+    - > db.tenants.insert('Astro')
+    - > db.tenants.find()
+
+    Get the tenant id and you need to pass this in header to access tenant resources
+
 ### Company
     - POST: /v1/companies
         - required fields
