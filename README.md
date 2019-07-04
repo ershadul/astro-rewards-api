@@ -19,7 +19,8 @@ The purpose was to develop a reward system just like https://rewards.astro.com.m
         - DB_URL (i.e. mongodb://localhost:27017/astro)
         - PORT (default is 3000)
         - SUPERUSER
-    - run `yarn start`
+    - To start server: `yarn start`
+    - To run tests: `yarn test`
 
 
 ## Resources
