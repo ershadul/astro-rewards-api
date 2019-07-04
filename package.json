@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "test",
+    "test": "./node_modules/mocha/bin/mocha server/test --exit",
     "start": "nodemon server/server.js",
     "lint": "./node_modules/.bin/eslint server"
   },
@@ -13,18 +13,23 @@
   "dependencies": {
     "aws-sdk": "^2.485.0",
     "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
     "http": "^0.0.0",
     "lodash": "^4.17.11",
+    "mocha": "^6.1.4",
     "mongoose": "^5.6.2",
     "mongoose-timestamp": "^0.6.0",
     "multer": "^1.4.1",
     "multer-s3": "^2.9.0",
     "nodemon": "^1.19.1",
     "path": "^0.12.7",
+    "sinon": "^7.3.2",
+    "sinon-mongoose": "^2.3.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

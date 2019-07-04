@@ -14,7 +14,10 @@ const server = http.createServer(app);
 const router = express.Router();
 app.use(router);
 
-const dbUrl = config.DB_URL;
+let dbUrl = config.DB_URL;
+if (process.env.NODE_ENV === 'test') {
+  dbUrl = 'mongodb://localhost:27017/astro_test';
+}
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
