@@ -15,7 +15,7 @@ describe("Company", () => {
     });
   });
 
-  describe("/GET tenants", () => {
+  describe("/GET companies", () => {
     it("it should raise error when tenant header is empty", done => {
       chai
         .request(server)
