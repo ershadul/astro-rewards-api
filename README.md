@@ -18,7 +18,8 @@ The purpose was to develop a reward system just like https://rewards.astro.com.m
         - S3_BUCKET_NAME
         - DB_URL (i.e. mongodb://localhost:27017/astro)
         - PORT (default is 3000)
-        - SUPERUSER
+        - SUPERUSER (you can put any string. You must pass this in header (in lowercase) to access tenants api endpoints)
+    - Install dependencies: `yarn`
     - To start server: `yarn start`
     - To run tests: `yarn test`
 
